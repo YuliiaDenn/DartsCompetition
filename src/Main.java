@@ -2,18 +2,32 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        int[][] team1 = new int[4][3];
-        int[][] team2 = new int[4][3];
-        int[][] team3 = new int[4][3];
+        start();
+    }
 
-        int[] winners = new int[3];
-        System.out.println("First team results:");
-        winners[0] = startCompetition(team1);
-        System.out.println("\nSecond team results:");
-        winners[1] = startCompetition(team2);
-        System.out.println("\nThird team results:");
-        winners[2] = startCompetition(team3);
+    private static void start() {
+        System.out.print("How many teams will there be?: ");
+        int teams = input();
+        System.out.print("\nHow many players will be in the team?: ");
+        int players = input();
+        System.out.print("\nHow many attempts each player will have?: ");
+        int attempts = input();
+        int[][][] participants = new int[teams][players][attempts];
+        int[] winners = new int[teams];
+        for (int i = 0; i < teams; i++) {
+            winners[i] = startCompetition(participants[i]);
+        }
         winner(winners);
+    }
+
+    private static int input() {
+        Scanner scan = new Scanner(System.in);
+        int number = scan.nextInt();
+        if (number < 1) {
+            System.out.printf("\nIncorrect value! %nEnter a positive whole number greater than 0: ");
+            number = scan.nextInt();
+        }
+        return number;
     }
 
     private static void winner(int[] totalResults) {
